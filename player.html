@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Player</title>
+    <style>
+      video {
+        width: 640px;
+        height: 360px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Player</h1>
+    <video id="video" controls>
+      Your browser does not support the video tag
+    </video>
+    <div>
+      <div>
+        <span id="current-timestamp">current timestamp</span>
+        <input id="seek-bar" type="range" value="0" />
+        <span id="duration">duration</span>
+      </div>
+      <div>
+        <button id="prev" type="button">prev video</button>
+        <button id="backward" type="button">backward</button>
+        <button id="play-pause" type="button">Play</button>
+        <button id="fast-forward" type="button">fast forward</button>
+        <button id="next" type="button">next video</button>
+      </div>
+    </div>
+    <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+    <script src="./player.js"></script>
+    <!-- <script>
+      var videoElement = document.getElementById('video');
+      var assetURL =
+        'http://demo.unified-streaming.com/video/ateam/ateam.ism/ateam.mpd';
+    </script> -->
+  </body>
+</html>
+
+<!-- http://demo.unified-streaming.com/video/ateam/ateam.ism/ateam.mpd 
+  2. http://dash.edgesuite.net/dash264/TestCases/1a/sony/SNE_DASH_SD_CASE1A_REVISED.mpd 
+  3. http://rdmedia.bbc.co.uk/dash/ondemand/testcard/1/client_manifest-events.mpd */ -->
