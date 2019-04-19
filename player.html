@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="player.css">
     <title>Player</title>
     <style>
       video {
@@ -14,13 +15,24 @@
   </head>
   <body>
     <h1>Player</h1>
+    <div>
+      <div>
+        Сейчас:
+        <span id="currentVideo"></span>
+      </div>
+      <div>
+        Далее:
+        <span id="nextVideo"></span>
+      </div>
+    </div>
     <video id="video" controls>
       Your browser does not support the video tag
     </video>
     <div>
-      <div>
+      <div class="seek-bar-container">
         <span id="current-timestamp">current timestamp</span>
         <input id="seek-bar" type="range" value="0" />
+        <span id="current-time-popup"></span>
         <span id="duration">duration</span>
       </div>
       <div>

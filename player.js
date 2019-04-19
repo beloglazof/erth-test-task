@@ -58,7 +58,7 @@ Number.prototype.toHHMMSS = function() {
 };
 
 window.onload = function() {
-  var videoElement = document.getElementById('video');
+  var video = document.getElementById('video');
   var player = dashjs.MediaPlayer().create();
   // Controls
   var playButton = document.getElementById('play-pause');
@@ -71,8 +71,10 @@ window.onload = function() {
   var currentTimestampElement = document.getElementById('current-timestamp');
   currentTimestampElement.innerHTML = Number(0).toHHMMSS();
   var durationElement = document.getElementById('duration');
+  var currentTimePopUp = document.getElementById('current-time-popup');
+  currentTimePopUp.style.visibility = 'hidden';
 
-  player.initialize(videoElement, getVideoUrl('init'), false);
+  player.initialize(video, getVideoUrl('init'), false);
 
   function syncPlayButtonState(element) {
     if (element.paused) {
@@ -82,44 +84,48 @@ window.onload = function() {
     }
   }
 
-  // var playPromise = videoElement.play();
-
-  // if (playPromise !== undefined) {
-  //   playPromise
-  //     .then(_ => {
-  //       console.log('success autoplay');
-  //     })
-  //     .catch(err => {
-  //       console.error(err);
-  //     });
-  // }
-
-  videoElement.addEventListener('canplay', function() {
-    durationElement.innerHTML = videoElement.duration.toHHMMSS();
+  video.addEventListener('canplay', function() {
+    durationElement.innerHTML = video.duration.toHHMMSS();
   });
 
-  videoElement.addEventListener('timeupdate', function() {
-    currentTimestampElement.innerHTML = videoElement.currentTime.toHHMMSS();
+  video.addEventListener('timeupdate', function() {
+    var currentTime = video.currentTime;
+    var duration = video.duration;
+
+    currentTimestampElement.innerHTML = currentTime.toHHMMSS();
+    currentTimePopUp.innerHTML = currentTime.toHHMMSS();
+
+    var timeValue = (100 / duration) * currentTime;
+    seekBar.value = timeValue;
+  });
+
+  seekBar.addEventListener('change', function() {
+    var time = video.duration * (seekBar.value / 100);
+    video.currentTime = time;
+  });
+
+  seekBar.addEventListener('focus', function() {
+    currentTimePopUp.style.visibility = 'visible';
   });
 
   playButton.addEventListener('click', function() {
-    if (videoElement.paused) {
-      videoElement.play();
-      syncPlayButtonState(videoElement);
+    if (video.paused) {
+      video.play();
+      syncPlayButtonState(video);
     } else {
-      videoElement.pause();
+      video.pause();
 
-      syncPlayButtonState(videoElement);
+      syncPlayButtonState(video);
     }
   });
 
   prevButton.addEventListener('click', function() {
     player.attachSource(getVideoUrl('prev'));
-    syncPlayButtonState(videoElement);
+    syncPlayButtonState(video);
   });
 
   nextButton.addEventListener('click', function() {
     player.attachSource(getVideoUrl('next'));
-    syncPlayButtonState(videoElement);
+    syncPlayButtonState(video);
   });
 };

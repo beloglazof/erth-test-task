@@ -1,0 +1,8 @@
+.seek-bar-container {
+  position: relative;
+}
+
+
+#current-time-popup{
+  position: absolute;
+}
