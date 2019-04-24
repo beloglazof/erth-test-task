@@ -171,7 +171,9 @@ function scrollVideo(direction, percent, seconds = 1) {
 }
 
 function getNextQuality(current) {
-  if (current === 3) {
+  const qualityList = player.getBitrateInfoListFor('video');
+  const maxQuality = qualityList[qualityList.length - 1].qualityIndex;
+  if (current === maxQuality) {
     return 0;
   }
 
@@ -207,6 +209,7 @@ function hideControlPanel() {
 function changeQuality() {
   var currentQuality = player.getQualityFor('video');
   var nextQuality = getNextQuality(currentQuality);
+  // console.log(nextQuality);
   player.setQualityFor('video', nextQuality);
 }
 
@@ -223,10 +226,14 @@ function handleControlKeyDown(key) {
 
   switch (key) {
     case 'ArrowLeft':
-      elementOnFocus.previousElementSibling.focus();
+      if (elementOnFocus) {
+        elementOnFocus.previousElementSibling.focus();
+      }
       break;
     case 'ArrowRight':
-      elementOnFocus.nextElementSibling.focus();
+      if (elementOnFocus) {
+        elementOnFocus.nextElementSibling.focus();
+      }
       break;
     case 'ArrowUp':
       progressBar.focus();
@@ -248,8 +255,7 @@ function updatePopUpPosition(value) {
   var popupBlockWidth = 55;
   var positionOffset =
     Math.round((popupBlockWidth * value) / 100) - popupBlockWidth / 2;
-  thumbPopUp.style.left =
-    'calc(' + value + '% - ' + positionOffset + 'px)';
+  thumbPopUp.style.left = 'calc(' + value + '% - ' + positionOffset + 'px)';
 }
 
 window.addEventListener('keydown', function(event) {
