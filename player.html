@@ -4,44 +4,95 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="player.css">
+    <link rel="stylesheet" href="player.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
     <title>Player</title>
-    <style>
-      video {
-        width: 640px;
-        height: 360px;
-      }
-    </style>
   </head>
   <body>
     <h1>Player</h1>
-    <div>
-      <div>
-        Сейчас:
-        <span id="currentVideo"></span>
-      </div>
-      <div>
-        Далее:
-        <span id="nextVideo"></span>
-      </div>
-    </div>
-    <video id="video" controls>
-      Your browser does not support the video tag
-    </video>
-    <div>
-      <div class="seek-bar-container">
-        <span id="current-timestamp">current timestamp</span>
-        <input id="seek-bar" type="range" value="0" />
-        <span id="current-time-popup"></span>
-        <span id="duration">duration</span>
-      </div>
-      <div>
-        <button id="prev" type="button">prev video</button>
-        <button id="backward" type="button">backward</button>
-        <button id="play-pause" type="button">Play</button>
-        <button id="fast-forward" type="button">fast forward</button>
-        <button id="next" type="button">next video</button>
-      </div>
+    <p id="errors"></p>
+    <div class="player-container">
+      <header class="player-control-panel">
+        <div class="current video">
+          Сейчас:
+          <br />
+          <span id="currentVideo" class="video-title"></span>
+        </div>
+        <div class="next video">
+          Далее:
+          <br />
+          <span id="nextVideo" class="video-title"></span>
+        </div>
+      </header>
+      <video id="video" autoplay>
+        Your browser does not support the video tag
+      </video>
+      <footer class="player-control-panel">
+        <div class="duration-controls">
+          <span id="current-timestamp" class="time">current timestamp</span>
+          <div class="progress-bar-container">
+            <input
+              id="progress-bar"
+              type="range"
+              value="0"
+              min="0"
+              step="0.005"
+              max="100"
+            />
+            <output name="current-time" id="thumb-popup"></output>
+          </div>
+          <!-- <span id="current-time-popup"></span> -->
+          <span id="duration" class="time">duration</span>
+        </div>
+        <div class="controls">
+          <button id="prev" type="button" class="control-button">
+            <img
+              src="./svg/previous.svg"
+              class="control-button-icon"
+              alt="previous"
+            />
+          </button>
+          <button id="backward" type="button" class="control-button">
+            <img src="./svg/back.svg" class="control-button-icon" alt="back" />
+          </button>
+          <button
+            id="play-pause"
+            type="button"
+            class="control-button"
+            autofocus
+          >
+            <img
+              src="./svg/play.svg"
+              class="control-button-icon"
+              id="play-pause-icon"
+              alt="play"
+            />
+          </button>
+          <button id="fast-forward" type="button" class="control-button">
+            <img
+              src="./svg/forward.svg"
+              class="control-button-icon"
+              alt="forward"
+            />
+          </button>
+          <button id="next" type="button" class="control-button">
+            <img src="./svg/next.svg" class="control-button-icon" alt="next" />
+          </button>
+        </div>
+        <div class="player-legend">
+          <div title="Y">
+            <span class="change-quality indicator"></span>
+            переключить качество
+          </div>
+          <div title="R">
+            <span class="quit indicator"></span>
+            назад
+          </div>
+        </div>
+      </footer>
     </div>
     <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
     <script src="./player.js"></script>
